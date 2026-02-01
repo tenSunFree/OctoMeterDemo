@@ -1,0 +1,218 @@
+<!--
+  ~ Copyright (c) 2024. RW MobiMedia UK Limited
+  ~
+  ~ Contributions made by other developers remain the property of their respective authors but are licensed
+  ~ to RW MobiMedia UK Limited and others under the same licence terms as the main project, as outlined in
+  ~ the LICENSE file.
+  ~
+  ~ RW MobiMedia UK Limited reserves the exclusive right to distribute this application on app stores.
+  ~ Reuse of this source code, with or without modifications, requires proper attribution to
+  ~ RW MobiMedia UK Limited.  Commercial distribution of this code or its derivatives without prior written
+  ~ permission from RW MobiMedia UK Limited is prohibited.
+  ~
+  ~ Please refer to the LICENSE file for the full terms and conditions.
+  -->
+
+<resources>
+    <string name="app_name">OctoMeter</string>
+    <string name="title">Some title</string>
+    <string name="navigation_onboarding">Onboarding</string>
+    <string name="navigation_usage">Usage</string>
+    <string name="navigation_tariffs">Tariffs</string>
+    <string name="navigation_agile">Agile</string>
+    <string name="navigation_account">Account</string>
+    <string name="ok">OK</string>
+    <string name="retry">Retry</string>
+    <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
+    <string name="no">No</string>
+    <string name="kwh">kWh</string>
+    <string name="p_kwh">p/kWh</string>
+    <string name="unit_kwh">%1$s kWh</string>
+    <string name="unit_pound">£%1$s</string>
+    <string name="standing_charge">Standing Charge</string>
+    <string name="standard_unit_rate">Unit Rate</string>
+    <string name="day_unit_rate">Day Unit Rate</string>
+    <string name="night_unit_rate">Night Unit Rate</string>
+    <string name="off_peak_rate">Off Peak Unit Rate</string>
+    <string name="w">W</string>
+    <string name="unit_p_day">%1$d p/day</string>
+    <string name="unit_p_kwh">%1$d p/kWh</string>
+    <string name="unit_percent">%1$d %</string>
+
+    <string name="selected">Selected</string>
+    <string name="loading">Loading...</string>
+    <string name="provide_api_key">Provide API Key</string>
+    <string name="unknown">Unknown</string>
+
+    <!-- Usage -->
+    <string name="usage_energy_consumption_breakdown">Consumption Breakdown</string>
+    <string name="presentation_style_day_half_hourly">Half-Hourly in a Day</string>
+    <string name="presentation_style_week_seven_days">Daily in a Week</string>
+    <string name="presentation_style_month_weeks">Weekly in a Month</string>
+    <string name="presentation_style_month_thirty_days">Daily in a Month</string>
+    <string name="presentation_style_year_twelve_months">Monthly in a Year</string>
+    <string name="grouping_label_month_weeks">Week Starting On</string>
+    <string name="usage_chart_tooltip_spot_kwh">%1$s\n%2$s kWh</string>
+    <string name="usage_chart_tooltip_range_kwh">%1$s - %2$s\n%3$s kWh</string>
+    <string name="usage_applied_tariff">Applied Tariff</string>
+    <string name="usage_current_tariff">Active Tariff</string>
+    <string name="usage_insights">Insights</string>
+    <plurals name="usage_insights_consumption">
+        <item quantity="one">Consumed This Day</item>
+        <item quantity="other">Consumed Over %1$s Days</item>
+    </plurals>
+    <string name="usage_estimated_cost">estimated</string>
+    <string name="usage_reference_cost">reference*</string>
+    <string name="usage_estimated_daily">Daily Average</string>
+    <string name="usage_projected_consumption">Projected</string>
+    <string name="usage_demo_introduction">Demo Mode: The consumption figures shown are randomly generated.</string>
+    <string name="usage_consumption">Consumption</string>
+    <string name="usage_standing_charge">Standing Charge</string>
+    <string name="usage_kwh_year">yearly</string>
+    <string name="usage_kwh_month">monthly</string>
+    <string name="usage_latest">Latest</string>
+    <string name="usage_error_date_out_of_range">Requested date is outside of the allowed range.</string>
+
+    <!-- Agile -->
+    <string name="agile_demo_introduction">Demo Mode: The Agile Tariff shown for Retail Region A may not be available to you.</string>
+    <string name="agile_about_tariff">About this tariff</string>
+    <string name="agile_unit_rate_details">Published Unit Rates</string>
+    <string name="agile_vat_unit_rate">VAT Unit Rate (p/kWh)</string>
+    <string name="agile_expire">Expires</string>
+    <string name="agile_expire_time">%1$s:%2$s</string>
+    <string name="agile_expires_in">Expires in %1$s:%2$s</string>
+    <string name="agile_different_tariff">You are on a different tariff</string>
+    <string name="agile_product_code_retail_region">%1$s (%2$s)</string>
+    <string name="agile_tariff_standard_unit_rate_two_lines">Unit Rate:\n%1$d p/kWh</string>
+    <string name="agile_tariff_standing_charge_two_lines">Standing Charge:\n%1$d p/day</string>
+    <string name="agile_tariff_standard_unit_rate">Unit Rate: %1$d p/kWh</string>
+    <string name="agile_tariff_standing_charge">Standing Charge: %1$d p/day</string>
+    <string name="agile_current_rate">Current Rate</string>
+    <string name="agile_chart_tooltip_range_p">%1$s\n%2$sp</string>
+    <string name="overpriced">Overpriced</string>
+    <string name="agile_live_consumption">Live Consumption</string>
+
+    <!-- Tariffs -->
+    <string name="tariffs_postcode">Postcode: %1$s</string>
+    <string name="tariffs_retail_region">Retail Region</string>
+    <string name="tariffs_fixed_term_months">Fixed term %1$s months</string>
+    <string name="tariffs_available_from">Available from %1$s %2$s</string>
+    <string name="tariffs_available_to">to %1$s</string>
+    <string name="tariffs_online_discount">Online Discount</string>
+    <string name="tariffs_dual_fuel_discount">Dual Fuel Discount</string>
+    <string name="tariffs_exit_fees">Exit Fees</string>
+    <string name="tariffs_direct_debit_monthly">Direct Debit Monthly</string>
+    <string name="tariffs_error_load_tariffs">Unable to retrieve tariffs</string>
+    <string name="tariffs_tariff_effective">Rates effective %1$s</string>
+    <string name="tariffs_variable_rate">Variable Unit Rate</string>
+    <string name="tariffs_half_hourly_rate">Half Hourly Unit Rate</string>
+    <string name="tariffs_agile_price_cap">Agile Price Cap</string>
+    <string name="tariffs_variable">Variable</string>
+    <string name="tariffs_postcode_dialog_label">Postcode</string>
+
+    <!-- Retail Regions -->
+    <string name="retail_region_eastern_england">Eastern England</string>
+    <string name="retail_region_east_midlands">East Midlands</string>
+    <string name="retail_region_london">London</string>
+    <string name="retail_region_merseyside_northern_wales">Merseyside and Northern Wales</string>
+    <string name="retail_region_west_midlands">West Midlands</string>
+    <string name="retail_region_north_eastern_england">North Eastern England</string>
+    <string name="retail_region_north_western_england">North Western England</string>
+    <string name="retail_region_southern_england">Southern England</string>
+    <string name="retail_region_south_eastern_england">South Eastern England</string>
+    <string name="retail_region_southern_wales">Southern Wales</string>
+    <string name="retail_region_south_western_england">South Western England</string>
+    <string name="retail_region_southern_scotland">Southern Scotland</string>
+    <string name="retail_region_yorkshire">Yorkshire</string>
+    <string name="retail_region_northern_scotland">Northern Scotland</string>
+    <string name="retail_region_unknown">Unknown Region</string>
+
+    <!-- Product Features -->
+    <string name="product_feature_variable">Variable</string>
+    <string name="product_feature_green">Green</string>
+    <string name="product_feature_tracker">Tracker</string>
+    <string name="product_feature_prepay">Prepay</string>
+    <string name="product_feature_business">Business</string>
+    <string name="product_feature_restricted">Restricted</string>
+    <string name="product_feature_halfhourly">Half-hourly</string>
+
+    <!-- Account Screen -->
+    <string name="account_demo_mode">Switch to Demo Mode</string>
+    <string name="account_clear_credential_title">Clear Credentials and Switch to Demo Mode</string>
+    <string name="account_clear_credential_description">Removing your API token and any account-specific data from local storage. Under demo mode, the application will utilise simulated local data to replicate authenticated access. Additionally, it will default to Eastern England when retrieving tariffs.</string>
+    <string name="account_clear_credential_button_cta">Clear</string>
+    <string name="account_version_api_disclaimer">OctoMeter Version %1$s (Build %2$d)\n%3$s\n\nThe APIs are provided by Octopus Energy Ltd. Usage subject to their terms of service.</string>
+    <string name="account_clear_cache">Clear Cache</string>
+    <string name="account_clear_cache_success">Cache cleared.</string>
+    <string name="account_clear_cache_failed">Unable to clear the cache.</string>
+    <string name="account_error_update_credentials">Access denied. Credentials not updated. Please check and try again.</string>
+    <string name="account_error_load_account">Unable to retrieve your account details.</string>
+    <string name="account_error_load_tariff">Unable to retrieve your tariff.</string>
+    <string name="account_error_account_empty">Unable to retrieve your account details. Try again?</string>
+
+    <string name="account_number">Account %1$s</string>
+    <string name="account_unknown_installation_address">Unknown installation address</string>
+    <string name="account_moved_in">Moved in: %1$s</string>
+    <string name="account_moved_out">Moved out: %1$s</string>
+    <string name="account_update_api_key">Update API Key</string>
+
+    <string name="account_mpan">MPAN: %1$s</string>
+    <string name="account_error_null_tariff">Unable to retrieve your tariff details.</string>
+    <string name="account_tariff_start_date">Tariff starts on %1$s</string>
+    <string name="account_tariff_date_range">Tariff from %1$s to %2$s</string>
+    <string name="account_tariff_unit_rate">Standard Unit Rate (p/kWh)</string>
+    <string name="account_tariff_day_unit_rate">Day Unit Rate (p/kWh)</string>
+    <string name="account_tariff_night_unit_rate">Night Unit Rate (p/kWh)</string>
+    <string name="account_tariff_off_peak_unit_rate">Off Peak Unit Rate (p/kWh)</string>
+    <string name="account_tariff_standing_charge">Standing Charge (p/day)</string>
+    <string name="account_meter_serial">Meter: %1$s</string>
+    <string name="account_meter_selected">SELECTED</string>
+    <string name="account_meter_select">SELECT</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_welcome_aboard">Welcome Aboard!</string>
+    <string name="onboarding_introduction_1">This app is currently running in demo mode, using simulated local data to replicate authenticated access. This means the electricity usage data displayed is not real. Additionally, the app will default to Eastern England when retrieving tariffs.</string>
+    <string name="onboarding_question_1">Are you an Octopus Energy customer with a smart meter installed?</string>
+    <string name="onboarding_introduction_2">If you are a current Octopus Energy customer with a smart meter and have access to your web account, you can generate an API key for this app to pull your smart meter data. Visit: https://octopus.energy/dashboard/new/accounts/personal-details/api-access</string>
+    <string name="onboarding_reminder_1">Your API key is confidential, so don't share it with anyone. If you have concerns, regenerating a new key will invalidate all previously issued keys.</string>
+    <string name="onboarding_reminder_2">This app can have read-only access to your electricity consumption data through the public APIs managed by Octopus Energy.</string>
+    <string name="onboarding_getting_started">Getting started</string>
+    <string name="onboarding_label_your_api_key">Your API Key</string>
+    <string name="onboarding_placeholder_api_key">sk_live_something</string>
+    <string name="onboarding_label_account">Account</string>
+    <string name="onboarding_placeholder_account">A-12345678</string>
+    <string name="onboarding_button_connect">Connect</string>
+
+    <!-- Common Error Screens -->
+    <string name="error_screen_unauthorised_title">Access Denied</string>
+    <string name="error_screen_unauthorised_description">Access was denied using the saved API Key and Account Number. Please clear the saved credentials and re-enter them.</string>
+    <string name="error_screen_network_error_title">Network Error</string>
+    <string name="error_screen_network_error_description">Please check your network connection, then try again.</string>
+    <string name="error_screen_general_http_error_title">HTTP Error %1$d</string>
+    <string name="error_screen_general_http_error_description_no_auth">You may try again later.</string>
+    <string name="error_screen_general_http_error_description">You may try again later. Alternatively, you can clear the saved credentials and re-enter them to see if that solves the problem.</string>
+    <string name="error_screen_general_error_title">Something is wrong</string>
+    <string name="error_screen_general_error_description_no_auth">You may try again later. If this is unexpected, log an issue on Github.</string>
+    <string name="error_screen_general_error_description">You may try again later. Alternatively, you can clear the saved credentials and re-enter them to see if that solves the problem.</string>
+    <string name="error_screen_no_data_title">There is nothing to show</string>
+    <string name="error_screen_no_data_description_no_auth">If this is unexpected, log an issue on Github</string>
+    <string name="error_screen_no_data_description">You may try again later. Alternatively, you can clear the saved credentials and re-enter them to see if that solves the problem.</string>
+
+    <!-- Desktop About dialog -->
+    <string name="about_app_title">About OctoMeter</string>
+    <string name="about_app_description">OctoMeter version %1$s (Build %2$s)\nMake the smartest use of your electricity\n\n%3$s</string>
+
+    <!-- Content Descriptions -->
+    <string name="content_description_navigation_bar">Navigation Bar</string>
+    <string name="content_description_navigation_rail">Navigation Rail</string>
+    <string name="content_description_previous_period">Navigate to the previous period</string>
+    <string name="content_description_next_period">Navigate to the next period</string>
+    <string name="content_description_dismiss_this_pane">Dismiss this pane</string>
+    <string name="content_description_navigate_back">Navigate back</string>
+    <string name="content_description_edit_postcode">Edit postcode</string>
+    <string name="content_description_clear">Clear</string>
+
+    <!-- Fallback Error message -->
+    <string name="fallback_error_no_consumptions">Error when retrieving consumptions</string>
+</resources>

@@ -1,0 +1,168 @@
+/*
+ * Copyright (c) 2024. RW MobiMedia UK Limited
+ *
+ * Contributions made by other developers remain the property of their respective authors but are licensed
+ * to RW MobiMedia UK Limited and others under the same licence terms as the main project, as outlined in
+ * the LICENSE file.
+ *
+ * RW MobiMedia UK Limited reserves the exclusive right to distribute this application on app stores.
+ * Reuse of this source code, with or without modifications, requires proper attribution to
+ * RW MobiMedia UK Limited.  Commercial distribution of this code or its derivatives without prior written
+ * permission from RW MobiMedia UK Limited is prohibited.
+ *
+ * Please refer to the LICENSE file for the full terms and conditions.
+ */
+
+package com.rwmobi.kunigami.ui.destinations.usage.components
+
+import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import com.rwmobi.kunigami.ui.components.CommonPreviewSetup
+import com.rwmobi.kunigami.ui.model.consumption.ConsumptionPresentationStyle
+import com.rwmobi.kunigami.ui.theme.AppTheme
+import octometerdemo.composeapp.generated.resources.Res
+import octometerdemo.composeapp.generated.resources.chevron_left_circle
+import octometerdemo.composeapp.generated.resources.chevron_right_circle
+import octometerdemo.composeapp.generated.resources.content_description_previous_period
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+internal fun TitleNavigationBar(
+    modifier: Modifier = Modifier,
+    currentPresentationStyle: ConsumptionPresentationStyle,
+    title: String,
+    canNavigateBack: Boolean,
+    onNavigateBack: () -> Unit,
+    canNavigateForward: Boolean,
+    onNavigateForward: () -> Unit,
+    onSwitchPresentationStyle: (consumptionPresentationStyle: ConsumptionPresentationStyle) -> Unit,
+) {
+    var presentationStyleDropdownMenuExpanded by remember { mutableStateOf(false) }
+
+    Surface {
+        Row(
+            modifier = modifier,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(size = AppTheme.dimens.minTouchTarget)
+                    .clickable(
+                        enabled = canNavigateBack,
+                        onClick = onNavigateBack,
+                    ),
+                contentAlignment = Alignment.Center,
+            ) {
+                if (canNavigateBack) {
+                    Icon(
+                        modifier = Modifier.padding(all = AppTheme.dimens.grid_1),
+                        tint = AppTheme.colorScheme.onSecondaryContainer,
+                        painter = painterResource(resource = Res.drawable.chevron_left_circle),
+                        contentDescription = stringResource(resource = Res.string.content_description_previous_period),
+                    )
+                }
+            }
+
+            BoxWithConstraints(
+                modifier = Modifier
+                    .padding(vertical = AppTheme.dimens.grid_1)
+                    .weight(weight = 1f),
+            ) {
+                Button(
+                    modifier = Modifier.fillMaxSize(),
+                    colors = ButtonDefaults.buttonColors().copy(
+                        containerColor = AppTheme.colorScheme.secondaryContainer.copy(
+                            alpha = 0.32f,
+                        ),
+                    ),
+                    onClick = { presentationStyleDropdownMenuExpanded = true },
+                ) {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        style = AppTheme.typography.titleMedium,
+                        color = AppTheme.colorScheme.onSecondaryContainer,
+                        text = title,
+                    )
+                }
+
+                PresentationStyleDropdownMenu(
+                    modifier = Modifier
+                        .width(width = maxWidth)
+                        .background(color = AppTheme.colorScheme.surface),
+                    currentPresentationStyle = currentPresentationStyle,
+                    expanded = presentationStyleDropdownMenuExpanded,
+                    onDismiss = { presentationStyleDropdownMenuExpanded = false },
+                    onSwitchPresentationStyle = {
+                        presentationStyleDropdownMenuExpanded = false
+                        onSwitchPresentationStyle(it)
+                    },
+                )
+            }
+
+            Box(
+                modifier = Modifier
+                    .size(size = AppTheme.dimens.minTouchTarget)
+                    .clickable(
+                        enabled = canNavigateForward,
+                        onClick = onNavigateForward,
+                    ),
+                contentAlignment = Alignment.Center,
+            ) {
+                if (canNavigateForward) {
+                    Icon(
+                        modifier = Modifier.padding(all = AppTheme.dimens.grid_1),
+                        tint = AppTheme.colorScheme.onSecondaryContainer,
+                        painter = painterResource(resource = Res.drawable.chevron_right_circle),
+                        contentDescription = stringResource(resource = Res.string.content_description_previous_period),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Preview
+@Composable
+private fun Preview() {
+    CommonPreviewSetup {
+        TitleNavigationBar(
+            modifier = Modifier
+                .background(color = AppTheme.colorScheme.secondary)
+                .fillMaxWidth()
+                .height(height = 64.dp),
+            title = "Sample title",
+            currentPresentationStyle = ConsumptionPresentationStyle.DAY_HALF_HOURLY,
+            canNavigateBack = true,
+            onNavigateBack = {},
+            canNavigateForward = true,
+            onSwitchPresentationStyle = {},
+            onNavigateForward = {},
+        )
+    }
+}

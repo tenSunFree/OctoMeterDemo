@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2024. RW MobiMedia UK Limited
- *
- * Contributions made by other developers remain the property of their respective authors but are licensed
- * to RW MobiMedia UK Limited and others under the same licence terms as the main project, as outlined in
- * the LICENSE file.
- *
- * RW MobiMedia UK Limited reserves the exclusive right to distribute this application on app stores.
- * Reuse of this source code, with or without modifications, requires proper attribution to
- * RW MobiMedia UK Limited.  Commercial distribution of this code or its derivatives without prior written
- * permission from RW MobiMedia UK Limited is prohibited.
- *
- * Please refer to the LICENSE file for the full terms and conditions.
- */
-
 package com.rwmobi.kunigami.ui.destinations.agile
 
 import androidx.compose.animation.core.animateFloatAsState
@@ -78,6 +63,18 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Clock
 
+/**
+ * Display the Agile tariff main screen.
+ *
+ * Provides a Compose UI that shows the chart, tariff card, grouped tariff list,
+ * and handles error/loading states.
+ *
+ * Parameters:
+ *  - modifier: UI modifier for external layout adjustments.
+ *  - uiState: The screen state containing loading, errors, chart data, and rate groups.
+ *  - uiEvent: Screen event callbacks for refreshing data, showing a Snackbar, navigation,
+ *             and starting/stopping live consumption updates.
+ */
 @Composable
 fun AgileScreen(
     modifier: Modifier = Modifier,
@@ -87,15 +84,12 @@ fun AgileScreen(
     if (uiState.errorMessages.isNotEmpty()) {
         val errorMessage = remember(uiState) { uiState.errorMessages[0] }
         val errorMessageText = errorMessage.message
-
         LaunchedEffect(errorMessage.id) {
             uiEvent.onShowSnackbar(errorMessageText)
             uiEvent.onErrorShown(errorMessage.id)
         }
     }
-
     val lazyListState = rememberLazyListState()
-
     Box(modifier = modifier) {
         when {
             uiState.requestedScreenType is AgileScreenType.Error -> {
@@ -124,7 +118,6 @@ fun AgileScreen(
                         it.partitionedItems.last().isEmpty()
                     }
                 }
-
                 Column(modifier = Modifier.fillMaxSize()) {
                     val subtitle = uiState.agileTariff?.let { primaryTariff ->
                         val regionCode = primaryTariff.getRetailRegion()?.stringResource
@@ -133,7 +126,6 @@ fun AgileScreen(
 
                         stringResource(resource = Res.string.agile_product_code_retail_region, primaryTariff.productCode, regionCode)
                     }
-
                     DualTitleBar(
                         modifier = Modifier
                             .background(color = AppTheme.colorScheme.secondary)
@@ -142,7 +134,6 @@ fun AgileScreen(
                         title = uiState.agileTariff?.displayName ?: "",
                         subtitle = subtitle,
                     )
-
                     ScrollbarMultiplatform(
                         modifier = Modifier.fillMaxWidth(),
                         enabled = uiState.rateGroupedCells.isNotEmpty(),
@@ -157,7 +148,6 @@ fun AgileScreen(
                                 delay(if (isBlinkingTextVisible) 1000 else 500)
                             }
                         }
-
                         LazyColumn(
                             modifier = contentModifier.conditionalBlur(enabled = uiState.isLoading && uiState.barChartData == null),
                             contentPadding = PaddingValues(bottom = AppTheme.dimens.grid_4),
@@ -176,14 +166,12 @@ fun AgileScreen(
                                     )
                                 }
                             }
-
                             uiState.barChartData?.let { barChartData ->
                                 renderChart(
                                     uiState = uiState,
                                     barChartData = barChartData,
                                 )
                             }
-
                             item(key = "tariffDetails") {
                                 AgileTariffCardAdaptive(
                                     modifier = Modifier
@@ -201,7 +189,6 @@ fun AgileScreen(
                                     requestedAdaptiveLayout = uiState.requestedAdaptiveLayout,
                                 )
                             }
-
                             if (uiState.rateGroupedCells.isNotEmpty()) {
                                 item(key = "headingUnitRateDetails") {
                                     Spacer(modifier = Modifier.height(height = AppTheme.dimens.grid_1))
@@ -215,7 +202,6 @@ fun AgileScreen(
                                     )
                                 }
                             }
-
                             rateGroupsWithPartitions.forEach { rateGroupsWithPartitions ->
                                 item(key = "${rateGroupsWithPartitions.title}Title") {
                                     RateGroupTitle(
@@ -228,7 +214,6 @@ fun AgileScreen(
                                         title = rateGroupsWithPartitions.title,
                                     )
                                 }
-
                                 val maxRows = rateGroupsWithPartitions.partitionedItems.maxOf { it.size }
                                 items(maxRows) { rowIndex ->
                                     RateGroupCells(
@@ -266,24 +251,20 @@ fun AgileScreen(
             }
         }
     }
-
     LaunchedEffect(true) {
         uiEvent.onRefresh()
-
         while (isActive) {
             val delayMillis = Clock.System.now().getNextHalfHourCountdownMillis()
             delay(timeMillis = delayMillis)
             uiEvent.onRefresh()
         }
     }
-
     LaunchedEffect(uiState.requestScrollToTop) {
         if (uiState.requestScrollToTop) {
             lazyListState.scrollToItem(index = 0)
             uiEvent.onScrolledToTop()
         }
     }
-
     DisposableEffect(Unit) {
         uiEvent.onStartLiveConsumptionUpdates()
         onDispose {
@@ -313,7 +294,6 @@ private fun LazyListScope.renderChart(
                         .height(uiState.requestedChartLayout.requestedMaxHeight)
                 }
             }
-
             VerticalBarChart(
                 modifier = constraintModifier.padding(all = AppTheme.dimens.grid_2),
                 showToolTipOnClick = uiState.showToolTipOnClick,
@@ -340,7 +320,6 @@ private fun LazyListScope.renderChart(
                             ),
                         )
                     }
-
                     uiState.latestFlexibleTariff?.vatInclusiveStandardUnitRate?.let { flexibleUnitRate ->
                         graphScope.HorizontalLineAnnotation(
                             location = flexibleUnitRate,

@@ -25,6 +25,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import co.touchlab.kermit.Logger
 import com.rwmobi.kunigami.ui.composehelper.collectAsStateMultiplatform
 import com.rwmobi.kunigami.ui.composehelper.getScreenSizeInfo
 import com.rwmobi.kunigami.ui.destinations.account.AccountScreen
@@ -51,6 +52,7 @@ fun AppNavigationHost(
     onShowSnackbar: suspend (String) -> Unit,
     onScrolledToTop: (AppDestination) -> Unit,
 ) {
+    Logger.v("more", message = { "AppNavigationHost" })
     val navigateToAccountTab = {
         navController.navigate(AppDestination.ACCOUNT.name) {
             navController.graph.startDestinationRoute?.let {
@@ -67,6 +69,7 @@ fun AppNavigationHost(
         navController = navController,
         startDestination = AppDestination.getStartDestination().name,
     ) {
+        Logger.v("more", message = { "AppNavigationHost, NavHost" })
         composable(route = AppDestination.USAGE.name) {
             // Workaround: passing through parameters not working on iOS, so we do it here
             val screenSizeInfo = getScreenSizeInfo()
@@ -101,6 +104,7 @@ fun AppNavigationHost(
         }
 
         composable(route = AppDestination.AGILE.name) {
+            Logger.v("more", message = { "AppNavigationHost, NavHost, composable, AGILE" })
             // workaround: Issue with iOS we have to do it here
             val screenSizeInfo = getScreenSizeInfo()
             val windowSizeClass = calculateWindowSizeClass()
@@ -117,19 +121,30 @@ fun AppNavigationHost(
                 viewModel.requestScrollToTop(enabled = enabled)
             }
 
+            Logger.v("more", message = { "AppNavigationHost, NavHost, composable, AGILE, uiState: $uiState" })
             AgileScreen(
                 modifier = Modifier.fillMaxSize(),
                 uiState = uiState,
                 uiEvent = AgileUIEvent(
-                    onRefresh = viewModel::refresh,
-                    onStartLiveConsumptionUpdates = viewModel::startLiveConsumptionUpdates,
-                    onStopLiveConsumptionUpdates = viewModel::stopLiveConsumptionUpdates,
-                    onErrorShown = viewModel::errorShown,
+                    actions = viewModel,
                     onScrolledToTop = { onScrolledToTop(AppDestination.AGILE) },
                     onShowSnackbar = onShowSnackbar,
                     onNavigateToAccountTab = navigateToAccountTab,
                 ),
             )
+            // AgileScreen(
+            //     modifier = Modifier.fillMaxSize(),
+            //     uiState = uiState,
+            //     uiEvent = AgileUIEvent(
+            //         onRefresh = viewModel::refresh,
+            //         onStartLiveConsumptionUpdates = viewModel::startLiveConsumptionUpdates,
+            //         onStopLiveConsumptionUpdates = viewModel::stopLiveConsumptionUpdates,
+            //         onErrorShown = viewModel::errorShown,
+            //         onScrolledToTop = { onScrolledToTop(AppDestination.AGILE) },
+            //         onShowSnackbar = onShowSnackbar,
+            //         onNavigateToAccountTab = navigateToAccountTab,
+            //     ),
+            // )
         }
 
         composable(route = AppDestination.TARIFFS.name) {

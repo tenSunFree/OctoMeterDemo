@@ -31,6 +31,7 @@ import com.rwmobi.kunigami.domain.usecase.consumption.GetLiveConsumptionUseCase
 import com.rwmobi.kunigami.domain.usecase.product.GetLatestProductByKeywordUseCase
 import com.rwmobi.kunigami.domain.usecase.product.GetStandardUnitRateUseCase
 import com.rwmobi.kunigami.domain.usecase.product.GetTariffRatesUseCase
+import com.rwmobi.kunigami.ui.destinations.agile.AgileActions
 import com.rwmobi.kunigami.ui.destinations.agile.AgileScreenType
 import com.rwmobi.kunigami.ui.destinations.agile.AgileUIState
 import com.rwmobi.kunigami.ui.model.ScreenSizeInfo
@@ -62,7 +63,7 @@ class AgileViewModel(
     private val getLiveConsumptionUseCase: GetLiveConsumptionUseCase,
     private val stringResourceProvider: StringResourceProvider,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
-) : ViewModel() {
+) : ViewModel(), AgileActions {
     private val _uiState: MutableStateFlow<AgileUIState> = MutableStateFlow(AgileUIState(isLoading = true))
     val uiState = _uiState.asStateFlow()
 
@@ -361,4 +362,12 @@ class AgileViewModel(
         super.onCleared()
         Logger.v("AgileViewModel", message = { "onCleared" })
     }
+
+    override fun onRefresh() = refresh()
+
+    override fun onStartLiveConsumptionUpdates() = startLiveConsumptionUpdates()
+
+    override fun onStopLiveConsumptionUpdates() = stopLiveConsumptionUpdates()
+
+    override fun onErrorShown(errorId: Long) = errorShown(errorId)
 }

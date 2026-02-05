@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import co.touchlab.kermit.Logger
 import com.rwmobi.kunigami.domain.extensions.getNextHalfHourCountdownMillis
 import com.rwmobi.kunigami.ui.components.DemoModeCtaAdaptive
 import com.rwmobi.kunigami.ui.components.DualTitleBar
@@ -81,12 +82,13 @@ fun AgileScreen(
     uiState: AgileUIState,
     uiEvent: AgileUIEvent,
 ) {
+    Logger.v("more", message = { "AgileScreen" })
     if (uiState.errorMessages.isNotEmpty()) {
         val errorMessage = remember(uiState) { uiState.errorMessages[0] }
         val errorMessageText = errorMessage.message
         LaunchedEffect(errorMessage.id) {
             uiEvent.onShowSnackbar(errorMessageText)
-            uiEvent.onErrorShown(errorMessage.id)
+            uiEvent.actions.onErrorShown(errorMessage.id)
         }
     }
     val lazyListState = rememberLazyListState()
@@ -97,7 +99,7 @@ fun AgileScreen(
                     modifier = Modifier.fillMaxSize(),
                     specialErrorScreen = uiState.requestedScreenType.specialErrorScreen,
                     onRefresh = {
-                        uiEvent.onRefresh()
+                        uiEvent.actions.onRefresh()
                     },
                 )
             }
@@ -246,17 +248,17 @@ fun AgileScreen(
                 ErrorScreenHandler(
                     modifier = Modifier.fillMaxSize(),
                     specialErrorScreen = SpecialErrorScreen.NoData,
-                    onRefresh = uiEvent.onRefresh,
+                    onRefresh = { uiEvent.actions.onRefresh() },
                 )
             }
         }
     }
     LaunchedEffect(true) {
-        uiEvent.onRefresh()
+        uiEvent.actions.onRefresh()
         while (isActive) {
             val delayMillis = Clock.System.now().getNextHalfHourCountdownMillis()
             delay(timeMillis = delayMillis)
-            uiEvent.onRefresh()
+            uiEvent.actions.onRefresh()
         }
     }
     LaunchedEffect(uiState.requestScrollToTop) {
@@ -266,9 +268,9 @@ fun AgileScreen(
         }
     }
     DisposableEffect(Unit) {
-        uiEvent.onStartLiveConsumptionUpdates()
+        uiEvent.actions.onStartLiveConsumptionUpdates()
         onDispose {
-            uiEvent.onStopLiveConsumptionUpdates()
+            uiEvent.actions.onStopLiveConsumptionUpdates()
         }
     }
 }

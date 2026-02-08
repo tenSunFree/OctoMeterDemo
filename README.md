@@ -35,6 +35,8 @@ This project is for learning and technical practice.
   Cross-platform Kotlin (shared logic + Compose UI across Android, iOS, and Desktop—Windows/macOS/Linux)  
 - Ktor  
   Kotlin networking (HTTP client/server; great for KMP shared APIs)  
+- Apollo Kotlin  
+  GraphQL client for Kotlin/KMP (type-safe models, codegen from schema, supports queries/mutations/subscriptions) 
 
 ---
 

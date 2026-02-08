@@ -32,7 +32,9 @@ This project is for learning and technical practice.
 ## Tech Stack  
 
 - Kotlin Multiplatform (KMP) + Compose Multiplatform  
-  Cross-platform development framework (share business logic in Kotlin and build UI with Compose across Android and Desktop platforms—Windows/macOS/Linux—while still integrating with native APIs via expect/actual and platform-specific modules  
+  Cross-platform Kotlin (shared logic + Compose UI across Android, iOS, and Desktop—Windows/macOS/Linux)  
+- Ktor  
+  Kotlin networking (HTTP client/server; great for KMP shared APIs)  
 
 ---
 

@@ -43,8 +43,8 @@ plugins {
 }
 
 // Configuration
-val productName = "OctoMeter"
-val productApkName = "OctoMeter"
+val productName = "OctoMeterDemo"
+val productApkName = "OctoMeterDemo"
 val productNameSpace = "com.rwmobi.kunigami"
 val isRunningOnCI = System.getenv("CI") == "true"
 
@@ -142,20 +142,39 @@ kotlin {
         }
 
         commonMain.dependencies {
+            // --- Compose Multiplatform core UI framework ---
+            // Compose runtime (handles state management and the Snapshot system)
             runtimeOnly(compose.runtime)
+            // Basic layout and gesture detection (e.g., Column, Row, Box, Gestures)
             implementation(compose.foundation)
+            // Material Design 3 UI component library (buttons, cards, theming, etc.)
             implementation(compose.material3)
+            // Compose UI core rendering, input and measurement logic
             implementation(compose.ui)
+            // Cross-platform resource management (unified handling of images, strings, fonts)
             implementation(compose.components.resources)
+            // Supports IDE UI preview functionality
             implementation(compose.components.uiToolingPreview)
+            // --- Architecture and Navigation ---
+            // Cross-platform Compose navigation library (handles screen navigation and route management)
             implementation(libs.navigation.compose)
+            // Support using ViewModel in Compose and binding to lifecycle
             implementation(libs.lifecycle.viewmodel.compose)
+            // Responsive layout utilities (detects window size for phone, tablet, or foldable devices)
             implementation(libs.material3.windowsizeclass)
+            // --- Logging and Debugging ---
+            // Kermit: cross-platform logging library (replacement for Android's Log.d)
             implementation(libs.kermit)
+            // Enable Koin's dependency injection to output logs via Kermit
             implementation(libs.kermit.koin)
+            // --- Network requests (Ktor) ---
+            // Ktor core client engine
             implementation(libs.ktor.client.core)
+            // Ktor common scheduler engine (CIO = Coroutine-based I/O)
             implementation(libs.ktor.client.cio)
+            // Ktor JSON serialization plugin for automatic mapping of API responses to objects
             implementation(libs.ktor.serialization.kotlinx.json)
+            // Content Negotiation: automatically handles the Accept and Content-Type HTTP headers
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.kotlinx.serialization.json)

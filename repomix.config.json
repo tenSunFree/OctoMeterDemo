@@ -1,0 +1,53 @@
+{
+  "$schema": "https://repomix.com/schemas/latest/schema.json",
+  "output": {
+    "filePath": "docs/ai/AI_CONTEXT_PACK.md",
+    "style": "markdown",
+    "fileSummary": true,
+    "directoryStructure": true,
+    "files": true
+  },
+  "ignore": {
+    "useGitignore": true,
+    "useDotIgnore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": [
+      "**/.git/**",
+      "**/.gradle/**",
+      "**/.idea/**",
+      "**/.vscode/**",
+      "**/build/**",
+      "**/dist/**",
+      "**/out/**",
+      "**/target/**",
+      "**/bin/**",
+      "**/obj/**",
+      "**/node_modules/**",
+      "**/Pods/**",
+      "**/.dart_tool/**",
+      "**/.pub-cache/**",
+      "**/vendor/**",
+      "**/generated/**",
+      "**/androidRelease/generated/**",
+      "**/baselineProfiles/**",
+      "**/test/**",
+      "**/tests/**",
+      "**/*Test*/**",
+      "**/androidUnitTest/**",
+      "**/androidInstrumentedTest/**",
+      "**/commonTest/**",
+      "**/*.png",
+      "**/*.jpg",
+      "**/*.jpeg",
+      "**/*.webp",
+      "**/*.gif",
+      "**/*.ico",
+      "**/*.icns",
+      "**/*.ttf",
+      "**/*.otf",
+      "**/*.zip",
+      "**/*.jar",
+      "**/*.aar"
+    ]
+  }
+}

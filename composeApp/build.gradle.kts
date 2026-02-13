@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2024. RW MobiMedia UK Limited
- *
- * Contributions made by other developers remain the property of their respective authors but are licensed
- * to RW MobiMedia UK Limited and others under the same licence terms as the main project, as outlined in
- * the LICENSE file.
- *
- * RW MobiMedia UK Limited reserves the exclusive right to distribute this application on app stores.
- * Reuse of this source code, with or without modifications, requires proper attribution to
- * RW MobiMedia UK Limited.  Commercial distribution of this code or its derivatives without prior written
- * permission from RW MobiMedia UK Limited is prohibited.
- *
- * Please refer to the LICENSE file for the full terms and conditions.
- */
-
 import com.android.build.api.dsl.ManagedVirtualDevice
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
@@ -68,6 +53,7 @@ kotlin {
     jvm("desktop")
     jvmToolchain(17)
 
+    // iOS targets and frameworks
     listOf(
         iosX64(),
         iosArm64(),
@@ -79,6 +65,7 @@ kotlin {
         }
     }
 
+    // OS/Arch detection (for Skiko runtime)
     // https://youtrack.jetbrains.com/issue/CMP-3123
     val osName = System.getProperty("os.name")
     val targetOs = when {
@@ -87,21 +74,19 @@ kotlin {
         osName.startsWith("Linux") -> "linux"
         else -> error("Unsupported OS: $osName")
     }
-
     val targetArch = when (val osArch = System.getProperty("os.arch")) {
         "x86_64", "amd64" -> "x64"
         "aarch64" -> "arm64"
         else -> error("Unsupported arch: $osArch")
     }
-
     val skikoVersion = libs.versions.skiko
     val skikoTarget = "$targetOs-$targetArch"
 
+    // Platform-specific dependencies
     sourceSets {
         all {
             languageSettings.optIn("kotlin.time.ExperimentalTime")
         }
-
         androidMain.dependencies {
             // tooling.preview is causing crash
             runtimeOnly(libs.androidx.lifecycle.runtime.compose)
@@ -113,14 +98,12 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
         }
-
         val androidUnitTest by getting {
             dependencies {
                 implementation(libs.androidx.test.core.ktx)
                 implementation(libs.robolectric)
             }
         }
-
         val androidInstrumentedTest by getting {
             dependencies {
                 implementation(project.dependencies.platform(libs.compose.bom))
@@ -132,7 +115,6 @@ kotlin {
                 implementation(libs.androidx.uiautomator)
             }
         }
-
         // https://kotlinlang.org/docs/multiplatform-android-layout.html#adjust-the-implementation-of-android-flavors
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         invokeWhenCreated("androidDebug") {
@@ -140,7 +122,6 @@ kotlin {
                 implementation(libs.leakcanary.android)
             }
         }
-
         commonMain.dependencies {
             // --- Compose Multiplatform core UI framework ---
             // Compose runtime (handles state management and the Snapshot system)
@@ -187,7 +168,6 @@ kotlin {
             implementation(libs.apollo.runtime)
             implementation(libs.apollo.adapters.core)
         }
-
         val desktopMain by getting {
             // To provide RoomDB Ctor actual declaration
             kotlin.srcDir("build/generated/ksp/metadata")
@@ -201,7 +181,6 @@ kotlin {
                 implementation(libs.slf4j)
             }
         }
-
         iosMain {
             // To provide RoomDB Ctor actual declaration
             kotlin.srcDir("build/generated/ksp/metadata")
@@ -209,7 +188,6 @@ kotlin {
                 implementation(libs.ktor.client.darwin)
             }
         }
-
         commonTest.dependencies {
             implementation(kotlin("test"))
             implementation(kotlin("test-common"))
@@ -223,6 +201,7 @@ kotlin {
     }
 }
 
+// Gradle module-level dependencies
 dependencies {
     "kspAndroid"(libs.androidx.room.compiler) // For AndroidUnitTest
     "kspCommonMainMetadata"(libs.androidx.room.compiler)
@@ -231,38 +210,30 @@ dependencies {
     coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
 
+// Android Gradle Plugin configuration
 android {
     namespace = productNameSpace
-
     setupSdkVersionsFromVersionCatalog()
     setupSigningAndBuildTypes()
-
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
-
     defaultConfig {
         applicationId = productNameSpace
-
         androidResources { localeFilters.add("en") }
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-
         // Kotlinx DateTime backward compatibility
         isCoreLibraryDesugaringEnabled = true
     }
-
     buildFeatures {
         compose = true
         buildConfig = true
     }
-
     packaging {
         resources {
             excludes += listOf(
@@ -276,15 +247,12 @@ android {
             )
         }
     }
-
     testOptions {
         animationsDisabled = true
-
         unitTests {
             isIncludeAndroidResources = true
             isReturnDefaultValues = true
         }
-
         managedDevices {
             allDevices {
                 create<ManagedVirtualDevice>("pixel2Api35") {
@@ -297,6 +265,7 @@ android {
     }
 }
 
+// Desktop packaging
 compose.desktop {
     application {
         mainClass = "$productNameSpace.MainKt"
